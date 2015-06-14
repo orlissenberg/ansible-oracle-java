@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: O. Lissenberg
+  description: Install Java 8
+  license: MIT
+  min_ansible_version: 1.6
+  platforms:
+  - name: Debian
+    versions:
+    - all
+    - jessie
+    - wheezy
+  dependencies: []
+

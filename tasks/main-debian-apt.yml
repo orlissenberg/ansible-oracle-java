@@ -1,0 +1,35 @@
+---
+# tasks file for oracle-java
+# http://www.webupd8.org/p/ubuntu-ppas-by-webupd8.html
+
+# Add WebUpd8's Oracle repository
+- name: Add repository
+  apt_repository: repo="deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
+  args:
+    state: present
+    update_cache: yes
+
+- name: Add source repository
+  apt_repository: repo="deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
+  args:
+    state: present
+    update_cache: yes
+
+# Accept Oracle license
+- name: Accept Oracle license prior JDK installation
+  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+  args:
+    creates: /usr/lib/jvm/java-8-oracle
+
+# Install Java
+- name: Install Java8 installer
+  apt: name=oracle-java8-installer
+  args:
+    state: present
+    force: yes
+
+# Set Default
+- apt: name=oracle-java8-set-default
+  args:
+      state: present
+      force: yes

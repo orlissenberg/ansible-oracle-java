@@ -1,0 +1,3 @@
+---
+# defaults file for oracle-java
+oracle_java_from_src: false

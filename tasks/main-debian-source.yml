@@ -1,0 +1,30 @@
+---
+# tasks file for oracle-java
+
+- apt: name=openjdk-7-jdk state=absent
+- apt: name=openjdk-6-jdk state=absent
+
+- name: fetch Oracle Java 8 package
+  shell: "wget --no-cookies --no-check-certificate --header \"Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie\"
+    \"http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz\" --output-document=\"/tmp/jdk-8u31-linux-x64.tar.gz\""
+  args:
+    creates: /tmp/jdk-8u31-linux-x64.tar.gz
+
+- copy: src=jdk-8u31-linux-x64.tar.gz.sha256 dest=/tmp/jdk-8u31-linux-x64.tar.gz.sha256 owner=root group=root mode=0644
+
+- name: checksum sha256
+  shell: sha256sum jdk-8u31-linux-x64.tar.gz.sha256 -c
+  args:
+    chdir: /tmp
+
+- file: path=/opt/java state=directory
+
+# https://www.digitalocean.com/community/tutorials/how-to-manually-install-oracle-java-on-a-debian-or-ubuntu-vps
+- name: unpack the Oracle JDK
+  unarchive: src=/tmp/jdk-8u31-linux-x64.tar.gz dest=/opt/java creates=/opt/java/jdk1.8.0_31
+
+- name: correct java version selected
+  alternatives: name=java path=/opt/java/jdk1.8.0_31/bin/java link=/usr/bin/java
+
+- name: correct javac version selected
+  alternatives: name=javac path=/opt/java/jdk1.8.0_31/bin/javac link=/usr/bin/javac
