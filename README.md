@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/orlissenberg/ansible-oracle-java.svg?branch=master)](https://travis-ci.org/orlissenberg/ansible-oracle-java)
+
 Role Name
 =========
 
