@@ -44,7 +44,7 @@ ansible-playbook ${TMP_DIR}/playbook.yml -i ${TMP_DIR}/hosts --syntax-check
 ansible-playbook ${TMP_DIR}/playbook.yml -i ${TMP_DIR}/hosts
 
 # Idempotence test
-ansible-playbook playbook.yml -i ${TMP_DIR}/hosts | grep -q 'changed=0.*failed=0' \
+ansible-playbook ${TMP_DIR}/playbook.yml -i ${TMP_DIR}/hosts | grep -q 'changed=0.*failed=0' \
   && (echo 'Idempotence test: pass' \
   && exit 0) || (echo 'Idempotence test: fail' && exit 1) \
 
